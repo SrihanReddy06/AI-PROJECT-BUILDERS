@@ -1,0 +1,11 @@
+and Answers**
+
+| # | Question | Answer |
+|---|----------|--------|
+| 1 | **Why did you choose Spring Boot over traditional Servlets/JSP?** | Spring Boot provides auto‑configuration, embedded Tomcat, and a vast ecosystem (Spring Data, Security, Scheduler). It dramatically reduces boilerplate, speeds up development, and aligns with industry best practices for Java web apps. |
+| 2 | **How does Task‑Track secure user passwords?** | Passwords are hashed using BCrypt via `BCryptPasswordEncoder`. This algorithm salts and iterates hashing, making brute‑force attacks computationally expensive. No plaintext passwords are stored or transmitted. |
+| 3 | **Explain the flow of a task reminder email.** | A `@Scheduled` method runs every hour, queries tasks where `dueDate - 24h` is within the current hour and status is still pending. For each such task, `JavaMailSender` composes an email (using a Thymeleaf template) and sends it to the task owner’s registered email address. |
+| 4 | **What strategies did you use to handle validation errors in the UI?** | We leveraged JSR‑380 annotations (e.g., `@NotBlank`, `@Future`) on DTOs. In the controller, `@Valid` triggers validation; `BindingResult` captures errors. The view uses Thymeleaf to display error messages next to form fields, providing instant feedback without page reloads. |
+| 5 | **How would you extend this project to support mobile clients?** | The existing REST API can be consumed by a native Android/iOS or React‑Native app. We would expose token‑based authentication (JWT), add CORS configuration, and optionally provide a GraphQL layer for more flexible queries. The scheduler remains server‑side, ensuring reminders are still sent. |
+
+---

@@ -1,0 +1,74 @@
+**1. Project Title**  
+**Task‑Track – A Lightweight Java Web Application for Personal Task Management**
+
+---
+
+**2. Abstract**  
+Task‑Track is a simple, yet fully functional, web‑based task management system built with Java. It allows users to register, log in, create, read, update, and delete (CRUD) tasks, set deadlines, mark tasks as completed, and receive email reminders. The application follows a clean MVC architecture, uses Spring Boot for rapid development, Thymeleaf for server‑side rendering, and MySQL as the persistence layer. The project demonstrates core web‑application concepts such as authentication, form validation, RESTful APIs, and background scheduling, all within a realistic scope suitable for a semester‑long mini‑project.
+
+---
+
+**3. Tools/Technologies Used**
+
+| Category | Technology | Reason |
+|----------|------------|--------|
+| **Language** | Java 17 | Modern language features, LTS support |
+| **Framework** | Spring Boot 3.0 | Rapid setup, embedded Tomcat, auto‑configuration |
+| **Web Layer** | Thymeleaf 3.0 | Server‑side templating, easy integration with Spring MVC |
+| **Persistence** | Spring Data JPA + Hibernate | ORM, repository abstraction |
+| **Database** | MySQL 8 (or H2 for local dev) | Relational DB, widely used |
+| **Build Tool** | Maven 3.9 | Dependency management, reproducible builds |
+| **Dependency Injection** | Spring DI | Loose coupling |
+| **Security** | Spring Security | Authentication & authorization |
+| **Email** | JavaMailSender (Spring) | Task reminder emails |
+| **Testing** | JUnit 5 + Mockito | Unit & integration tests |
+| **Version Control** | Git | Collaboration & history |
+| **IDE** | IntelliJ IDEA / Eclipse | Development environment |
+| **CI/CD (Optional)** | GitHub Actions | Automated build & test |
+
+---
+
+**4. Modules/Features**
+
+| Module | Description |
+|--------|-------------|
+| **User Management** | Registration, login, logout, password encryption (BCrypt), role‑based access (USER, ADMIN). |
+| **Task CRUD** | Create, read, update, delete tasks. Each task has: title, description, due date, priority, status (Pending/Completed). |
+| **Task List & Filters** | Paginated list view, filter by status, priority, due date. |
+| **Email Reminders** | Scheduled job (Spring Scheduler) that sends emails 24 hrs before a task’s due date. |
+| **REST API** | Optional JSON endpoints for tasks (GET `/api/tasks`, POST `/api/tasks`, etc.) for future mobile integration. |
+| **Validation & Error Handling** | Server‑side validation (JSR‑380), global exception handler, user‑friendly error pages. |
+| **Responsive UI** | Bootstrap 5 for mobile‑friendly design. |
+| **Unit & Integration Tests** | Coverage for service layer, repository layer, controller layer, and email scheduler. |
+| **Documentation** | README, API docs (Swagger optional), deployment guide. |
+
+---
+
+**5. Estimated Completion Time**  
+| Phase | Duration (days) | Milestones |
+|-------|-----------------|------------|
+| Requirement Analysis & Design | 2 | UML diagrams, database schema, API contract |
+| Project Setup & Boilerplate | 1 | Maven project, Spring Boot starter, basic folder structure |
+| User Management (Auth) | 3 | Registration, login, password hashing, role management |
+| Task CRUD (Web UI) | 4 | Forms, list view, pagination, validation |
+| Email Scheduler | 2 | Scheduler configuration, email service, testing |
+| REST API & Swagger (Optional) | 2 | Endpoints, documentation |
+| Testing | 3 | Unit tests, integration tests, test data |
+| Polish & Deployment | 2 | UI tweaks, error pages, Dockerfile, README |
+| **Total** | **19** | **~3 weeks** (assuming 5 days/week) |
+
+*(If the student prefers to split the work over a semester, each module can be assigned as a separate sprint.)*
+
+---
+
+**6. Viva Questions and Answers**
+
+| # | Question | Answer |
+|---|----------|--------|
+| 1 | **Why did you choose Spring Boot over traditional Servlets/JSP?** | Spring Boot provides auto‑configuration, embedded Tomcat, and a vast ecosystem (Spring Data, Security, Scheduler). It dramatically reduces boilerplate, speeds up development, and aligns with industry best practices for Java web apps. |
+| 2 | **How does Task‑Track secure user passwords?** | Passwords are hashed using BCrypt via `BCryptPasswordEncoder`. This algorithm salts and iterates hashing, making brute‑force attacks computationally expensive. No plaintext passwords are stored or transmitted. |
+| 3 | **Explain the flow of a task reminder email.** | A `@Scheduled` method runs every hour, queries tasks where `dueDate - 24h` is within the current hour and status is still pending. For each such task, `JavaMailSender` composes an email (using a Thymeleaf template) and sends it to the task owner’s registered email address. |
+| 4 | **What strategies did you use to handle validation errors in the UI?** | We leveraged JSR‑380 annotations (e.g., `@NotBlank`, `@Future`) on DTOs. In the controller, `@Valid` triggers validation; `BindingResult` captures errors. The view uses Thymeleaf to display error messages next to form fields, providing instant feedback without page reloads. |
+| 5 | **How would you extend this project to support mobile clients?** | The existing REST API can be consumed by a native Android/iOS or React‑Native app. We would expose token‑based authentication (JWT), add CORS configuration, and optionally provide a GraphQL layer for more flexible queries. The scheduler remains server‑side, ensuring reminders are still sent. |
+
+---
