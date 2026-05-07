@@ -1,0 +1,10 @@
+from groq import Groq
+
+client = Groq(api_key="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")
+
+# List all available models
+models = client.models.list()
+
+# Print model IDs
+for model in models.data:
+    print(model.id)
